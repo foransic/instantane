@@ -29,7 +29,7 @@ function parseMail(mail, cb) {
   });
 
   mailparser.on("end", function(mail){
-    if (config.mail.recipents.includes(mail.from)) {
+    if (config.mail.recipients.includes(mail.from)) {
       console.log("From:", mail.from);
       console.log("Subject:", mail.subject);
       console.log("Text body:", mail.text);
@@ -67,7 +67,7 @@ function parseMail(mail, cb) {
 imap.once('ready', function() {
   openInbox(function(err, box) {
     if (err) throw err;
-    imap.search(['SEEN'], function(err, results) {
+    imap.search(['UNSEEN'], function(err, results) {
       if (err) console.log('you are already up to date');
       var f = imap.fetch(results, { bodies: '' }); // f -> imapFetch
       f.on('message', function(msg, seqno) {
