@@ -5,7 +5,7 @@ var pictureSchema = new mongoose.Schema({
   from: String,
   title: String,
   description: String,
-  url: String
+  picture: String
 });
 
 mongoose.model('Picture', pictureSchema);

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr" ng-app="instantane">
+<head>
+  <meta charset="utf-8">
+  <title>Instantan&eacute;</title>
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link href='https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,600' rel='stylesheet' type='text/css'>
+</head>
+<body ng-controller="ListCtrl">
+  <h1>Instantan&eacute;</h1>
+  <div class="main">
+    <ul ng-repeat="picture in pictures">
+      <li class="picture">
+        <div class="picture" style="background-image:url({{picture.picture}});" /></div>
+        <h2>{{picture.title}}</h2>
+        <p>{{picture.description}}</p>
+      </li>
+    </ul>
+  </div>
+
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

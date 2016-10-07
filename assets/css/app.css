@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open sans';
+  font-size: 14px;
+}
+
+h1 {
+  top: 0px;
+  width: 100%;
+  position: fixed;
+  display: block;
+  height: 40px;
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 2em;
+  font-family : 'Comfortaa';
+  color: #3B8686;
+  background: white;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+h2 {
+  font-size: 1em;
+  color: #79BD9A;
+  margin: 2px 0;
+}
+
+h3 {
+  font-size:0.9em;
+  font-weight: normal;
+  color: #222;
+}
+.main {
+  width: 500px;
+  margin: 50px auto 100px;
+  padding: 0;
+}
+
+.main ul,
+.main li {
+  list-style-type: none;
+}
+
+.main li {
+  margin-top: 60px;
+}
+
+.main .picture {
+  display: inline-block;
+  width: 500px;
+  height: 500px;
+  background-position: center center;
+  background-size: cover;
+}
