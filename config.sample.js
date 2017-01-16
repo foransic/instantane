@@ -9,6 +9,8 @@ config.picture = {};
 config.app.port = 1234;
 
 // Database
+config.db.user = 'instantane';
+config.db.password = 'password'; // the password for mongodb mellon user
 config.db.host = 'localhost';
 config.db.port = 5678;
 config.db.base = 'instantane';

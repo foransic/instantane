@@ -9,4 +9,4 @@ var pictureSchema = new mongoose.Schema({
 });
 
 mongoose.model('Picture', pictureSchema);
-mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.base);
+mongoose.connect('mongodb://' + config.db.user + ':' + config.db.password + '@' + config.db.host + ':' + config.db.port + '/' + config.db.base);
