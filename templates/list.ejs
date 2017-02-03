@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Instantan&eacute;</title>
   <link rel="stylesheet" href="assets/css/app.css">
-  <link href='https://fonts.googleapis.com/css?family=Comfortaa|Open+Sans:300,600' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Reenie+Beanie|Open+Sans:300,600' rel='stylesheet' type='text/css'>
 </head>
 <body ng-controller="ListCtrl">
   <h1>Instantan&eacute;</h1>
@@ -13,7 +13,8 @@
       <li class="picture">
         <div class="picture" style="background-image:url({{picture.picture}});" /></div>
         <h2>{{picture.title}}</h2>
-        <p>{{picture.description}}</p>
+        <p class="date">{{picture.picDate | date: "dd/MM/yyyy &agrave;  HH:mm"}}</p>
+        <p class="desc">{{picture.description}}</p>
       </li>
     </ul>
   </div>

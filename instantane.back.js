@@ -1,6 +1,8 @@
 var Imap = require('imap');
 var MailParser = require("mailparser").MailParser;
 var Magick = require('imagemagick');
+var ExifImage = require('exif').ExifImage;
+var moment = require('moment');
 
 var db = require('./model/db');
 var picturesModel = require('./model/pictures.js');
@@ -26,12 +28,25 @@ function parseMail(mail, cb) {
 
       var title = mail.subject;
       var description = mail.text;
+      var picDate = null;
 
       if (mail.attachments && mail.attachments.length > 0) {
         // I take only the first one, let's see how manage the next ones later ;-)
         var attachment = mail.attachments[0];
         var filename = attachment.generatedFileName;
         var base64header = 'data:image/' + filename.substring(filename.lastIndexOf('.') + 1) + ';base64,';
+
+        try {
+          new ExifImage({ image : attachment.content }, function (error, exifData) {
+            if (error)
+              console.log('Error: '+error.message);
+            else {
+              picDate = moment(exifData.exif.CreateDate, 'YYYY:MM:DD HH:mm:ss').toDate();
+            }
+          });
+        } catch (error) {
+          console.log('Error: ' + error.message);
+        }
         Magick.resize({
           srcData: attachment.content,
           width: 1000
@@ -39,7 +54,8 @@ function parseMail(mail, cb) {
           if (err) {
             cb(err);
           } else {
-            picturesModel.create(from, title, description, base64header + new Buffer(stdout, 'binary').toString('base64'), function(err, pic) {
+            var imageBuffer = new Buffer(stdout, 'binary');
+            picturesModel.create(from, title, description, picDate, base64header + imageBuffer.toString('base64'), function(err, pic) {
               cb(err);
             });
           }
