@@ -32,4 +32,7 @@ config.picture.web = 'pictures/';
 // Reload interval
 config.interval = 60000;
 
+// API
+config.apikey = 'aaaa-pppp-iiii-kkkk-eeee-yyyy';
+
 module.exports = config;

@@ -34,36 +34,50 @@ app.get('/api/pictures', function(req, res) {
 });
 
 app.post('/api/pictures', function(req, res) {  
-  var _from = req.body.from;
-  var _title = req.body.title;
-  var _description = req.body.description;
-  var _url = req.body.url;
-  var base64header = 'data:' + mime.getType(_url) + ';base64,';
+  var apikey = null;
   
-  request.get(_url, function (error, response, buffer) {    
-    try {
-      var _date = null;
-      new ExifImage({ image : buffer }, function (error, exifData) {
-        if (error) {
-          return res.json({'result' : '0', 'error' : error.message });
-        } else {
-          _date = moment(exifData.exif.CreateDate, 'YYYY:MM:DD HH:mm:ss').toDate();
-        }
-        sharp(buffer).resize({ width: 1000 })
-          .toBuffer()
-          .then(_picture => {
-            picturesModel.create(_from, _title, _description, _date, base64header + _picture.toString('base64'), function(err, pic) {
-              if (err) {
-                return res.json({'result' : '0', 'error' : error.message });
-              } else {
-                return res.json({'result' : '1' });
-              }
-            });  
-          });
-      });
-    } catch (error) {
-       return res.json({'result' : '0', 'error' : error.message });
-    }
-  });
+  if (req.query.apikey) {
+    apikey = req.query.apikey;
+  } 
+  
+  if (req.get('X-Instantane-Api-Key')) {
+    apikey = req.get('X-Instantane-Api-Key');
+  }
+
+  if (apikey == config.apikey) {
+    var _from = req.body.from;
+    var _title = req.body.title;
+    var _description = req.body.description;
+    var _url = req.body.url;
+    var base64header = 'data:' + mime.getType(_url) + ';base64,';
+    
+    request.get(_url, function (error, response, buffer) {    
+      try {
+        var _date = null;
+        new ExifImage({ image : buffer }, function (error, exifData) {
+          if (error) {
+            return res.json({'result' : '0', 'error' : error.message });
+          } else {
+            _date = moment(exifData.exif.CreateDate, 'YYYY:MM:DD HH:mm:ss').toDate();
+          }
+          sharp(buffer).resize({ width: 1000 })
+            .toBuffer()
+            .then(_picture => {
+              picturesModel.create(_from, _title, _description, _date, base64header + _picture.toString('base64'), function(err, pic) {
+                if (err) {
+                  return res.json({'result' : '0', 'error' : error.message });
+                } else {
+                  return res.json({'result' : '1' });
+                }
+              });  
+            });
+        });
+      } catch (error) {
+         return res.json({'result' : '0', 'error' : error.message });
+      }
+    });
+  } else {
+    return res.json({'result' : '0', 'error' : 'Bad API key' });
+  }
 });
 app.listen(config.app.port);
