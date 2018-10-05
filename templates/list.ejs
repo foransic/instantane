@@ -3,22 +3,24 @@
 <head>
   <meta charset="utf-8">
   <title>Instantan&eacute;</title>
+  <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="assets/css/app.css">
-  <link href='https://fonts.googleapis.com/css?family=Reenie+Beanie|Open+Sans:300,600' rel='stylesheet' type='text/css'>
 </head>
 <body ng-controller="ListCtrl">
-  <h1>Instantan&eacute;</h1>
+  <h1>Instantan&</h1>
   <div class="main">
-    <ul ng-repeat="picture in pictures">
-      <li class="picture">
-        <div class="picture" style="background-image:url({{picture.picture}});" /></div>
-        <h2>{{picture.title}}</h2>
-        <p class="date">{{picture.picDate | date: "dd/MM/yyyy &agrave;  HH:mm"}}</p>
-        <p class="desc">{{picture.description}}</p>
-      </li>
-    </ul>
+    <div class="gallery">
+      <div ng-repeat="picture in pictures" ng-controller="ClassCtrl">
+        <img src="{{picture.picture}}" alt="{{picture.title}}" class="picture" ng-class="{'zoom' : isActive}" ng-click="zoom()" />
+        <p class="detail">
+            <span class="date">{{picture.picDate | date: "dd/MM/yyyy &agrave;  HH:mm"}}</span>
+            <strong>{{picture.title}}</strong>  - {{picture.description}}
+        </p>
+      </div>
+    </div>
   </div>
-
+  <footer>Powered by <a href="https://github.com/foransic/instantane">Instantan&eacute;</a> ❤️ / Luna Font by <a href="http://www.amandaleeson.com/">Amanda Leeson</a></footer>
+  
   <script src="lib/angular/angular.min.js"></script>
   <script src="assets/js/app.js"></script>
 </body>

@@ -34,23 +34,26 @@ app.get('/api/pictures', function(req, res) {
 });
 
 app.post('/api/pictures', function(req, res) {  
+  // 1. Retrieve & test API Key
   var apikey = null;
-  
-  if (req.query.apikey) {
-    apikey = req.query.apikey;
-  } 
   
   if (req.get('X-Instantane-Api-Key')) {
     apikey = req.get('X-Instantane-Api-Key');
   }
+  
+  if (req.query.apikey) {
+    apikey = req.query.apikey;
+  } 
 
   if (apikey == config.apikey) {
+    // 2. Get POST parameters
     var _from = req.body.from;
     var _title = req.body.title;
     var _description = req.body.description;
     var _url = req.body.url;
     var base64header = 'data:' + mime.getType(_url) + ';base64,';
     
+    // 3. Get picture from URL
     request.get(_url, function (error, response, buffer) {    
       try {
         var _date = null;

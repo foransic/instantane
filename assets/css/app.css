@@ -1,11 +1,13 @@
+
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Open sans';
-  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
 }
 
 h1 {
@@ -13,54 +15,65 @@ h1 {
   width: 100%;
   position: fixed;
   display: block;
-  height: 40px;
+  height: 80px;
+  line-height: 80px;
   margin: 0;
   padding: 5px;
   text-align: center;
-  line-height: 40px;
   font-size: 2.5em;
   font-weight: normal;
-  font-family : 'Reenie Beanie', cursive;
-  color: #222222;
+  font-family : 'lunaregular', cursive;
+  color: #69c1bc;
   background: white;
   border-bottom: 1px solid #f1f1f1;
 }
 
-h2 {
-  font-size: 1em;
-  color: #222;
-  margin: 2px 0;
-}
-
-h3 {
-  font-size:0.9em;
-  font-weight: normal;
-  color: #222;
-}
 .main {
-  width: 500px;
-  margin: 50px auto 100px;
+  max-width: 1020px;
+  margin: 100px auto 100px;
   padding: 0;
 }
 
-.main ul,
-.main li {
-  list-style-type: none;
+.gallery {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  
+  max-width: 100%;
 }
 
-.main li {
-  margin-top: 60px;
-}
-
-.main .picture {
-  display: inline-block;
-  width: 500px;
-  height: 500px;
+.picture {
+  width: 328px;
+  height: 328px;
+  object-fit: cover;
+  margin: 5px;
+  border-radius: 5px;
   background-position: center center;
   background-size: cover;
 }
 
-.picture .date {
+.zoom {
+  object-fit: fill;
+  width: 100%;
+  height: inherit;
+  margin: 5px 0;
+}
+
+.detail {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.detail .date {
   font-size: 0.9em;
-  color: #79BD9A;
+  color: #69c1bc;
+}
+
+footer {
+  padding: 10px;
+  margin: 10px;
+  color: #69c1bc;
+  text-align: center;
 }

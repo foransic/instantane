@@ -7,4 +7,10 @@ angular.module('instantane', [])
     }).error(function(error) {
       console.log('An error occured : ' + error);
     });
+}).controller('ClassCtrl', function($scope) {
+  $scope.isActive = false;
+  $scope.zoom = function() {
+    angular.element(document.querySelector('.zoom')).removeClass('zoom');
+    $scope.isActive = !$scope.isActive;
+  }
 });
