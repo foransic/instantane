@@ -15,6 +15,20 @@ exports.list = function(callback) {
 };
 
 /**
+ * Find all pictures from index to index + limit
+ */
+exports.listByPage = function(index, limit, callback) {
+  var Picture = mongoose.model('Picture');
+  Picture.find().sort({picDate:-1}).skip(index).limit(limit).exec(function(error, pictures) {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, pictures);
+    }
+  });
+};
+
+/**
  * Create a picture
  */
 exports.create = function(from, title, description, picDate, picture, callback) {

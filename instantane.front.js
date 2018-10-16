@@ -24,7 +24,10 @@ app.get('/', function(req, res) {
   });
 
 app.get('/api/pictures', function(req, res) {
-  picturesModel.list(function(error, pictures) {
+  var index = eval(req.query.index);
+  var limit = eval(req.query.limit);
+
+  picturesModel.listByPage(index, limit, function(error, pictures) {
     if (error) {
       res.json({error : error});
     } else {
@@ -33,17 +36,17 @@ app.get('/api/pictures', function(req, res) {
   });
 });
 
-app.post('/api/pictures', function(req, res) {  
+app.post('/api/pictures', function(req, res) {
   // 1. Retrieve & test API Key
   var apikey = null;
-  
+
   if (req.get('X-Instantane-Api-Key')) {
     apikey = req.get('X-Instantane-Api-Key');
   }
-  
+
   if (req.query.apikey) {
     apikey = req.query.apikey;
-  } 
+  }
 
   if (apikey == config.apikey) {
     // 2. Get POST parameters
@@ -52,9 +55,9 @@ app.post('/api/pictures', function(req, res) {
     var _description = req.body.description;
     var _url = req.body.url;
     var base64header = 'data:' + mime.getType(_url) + ';base64,';
-    
+
     // 3. Get picture from URL
-    request.get(_url, function (error, response, buffer) {    
+    request.get(_url, function (error, response, buffer) {
       try {
         var _date = null;
         new ExifImage({ image : buffer }, function (error, exifData) {
@@ -72,7 +75,7 @@ app.post('/api/pictures', function(req, res) {
                 } else {
                   return res.json({'result' : '1' });
                 }
-              });  
+              });
             });
         });
       } catch (error) {
